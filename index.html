@@ -77,7 +77,7 @@ html.intro-on #intro{display:flex}
 .hero .mark .gl{width:100%;height:auto}
 .hero .mark{position:absolute;right:clamp(20px,12vw,180px);top:50%;transform:translateY(-62%);width:clamp(180px,26vw,380px);color:var(--jade);opacity:.06;pointer-events:none}
 .hero-in{position:relative;max-width:920px}
-.hero h1{font-size:clamp(88px,15vw,208px);line-height:.95;letter-spacing:.06em;text-transform:uppercase;margin-top:28px}
+.hero h1{font-size:clamp(88px,15vw,208px);line-height:.95;letter-spacing:.06em;text-transform:uppercase}
 .hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(22px,2.4vw,32px);line-height:1.4;color:var(--niebla);max-width:26em;margin-top:40px}
 .hero .cta{display:inline-flex;align-items:center;gap:12px;margin-top:48px;min-height:48px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--jade);border-bottom:1px solid rgba(93,181,164,.5);padding-bottom:4px;transition:color .5s var(--ease),border-color .5s var(--ease)}
 @media (hover:hover){.hero .cta:hover{color:var(--perla);border-color:var(--perla)}}
@@ -94,19 +94,8 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
 .rv{opacity:0;transform:translateY(14px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .idea .wrap{max-width:900px}
-.idea h2{font-size:clamp(30px,3.6vw,50px);line-height:1.2;margin-top:20px}
+.idea h2{font-size:clamp(30px,3.6vw,50px);line-height:1.2}
 .idea p.lead{margin-top:32px;font-size:18px;line-height:1.75;color:var(--bruma);max-width:34em}
-.triad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:56px;border-top:1px solid var(--line2);max-width:1000px}
-.triad a,.triad div{display:block;padding:22px 24px 0 0}
-.triad > *+*{padding-left:24px;border-left:1px solid var(--line)}
-.triad .on{border-left-color:rgba(93,181,164,.5)}
-.triad b{display:block;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--bruma);margin-bottom:8px}
-.triad .on b{color:var(--jade)}
-.triad span{display:block;font-size:16px;line-height:1.5;color:var(--niebla)}
-.triad .on span{color:var(--perla)}
-@media (hover:hover){.triad a:hover b{color:var(--jade)}}
-.triad a:active{transform:scale(.98)}
-@media (max-width:720px){.triad{grid-template-columns:1fr}.triad > *+*{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:20px}.triad a,.triad div{padding:18px 0 0}}
 
 .sec-head{max-width:760px;margin-bottom:48px}
 .sec-head h2{font-size:clamp(30px,3.4vw,46px);line-height:1.15;margin-top:16px}
@@ -156,13 +145,6 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
 @media (max-width:760px){.cd summary{grid-template-columns:36px minmax(0,1fr);}.cd .dots{grid-column:2}.cd .st{grid-column:2;text-align:left}.cd p.d{padding-left:56px}}
 
 /* cómo se lee */
-.capas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid var(--line2);max-width:1000px}
-.capas div{padding:22px 24px 0 0}
-.capas div+div{padding-left:24px;border-left:1px solid var(--line)}
-.capas .r{font-family:var(--mono);font-size:12px;color:var(--jade)}
-.capas h3{font-size:26px;margin:8px 0 8px}
-.capas p{font-size:15px;line-height:1.6;color:var(--bruma)}
-@media (max-width:640px){.capas div+div{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:18px}.capas div{padding:18px 0 0}}
 .reg{margin-top:72px;max-width:900px}
 .reg h3{font-size:clamp(24px,2.6vw,34px);margin:14px 0 8px}
 .reg .exa{color:var(--bruma);font-size:15px;max-width:40em}
@@ -242,7 +224,6 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
   </svg>
   <div class="mark" aria-hidden="true"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M435 50Q500 90 542 128.5Q584 167 605.5 202Q627 237 634 263.5Q641 290 635.5 307Q630 324 616.5 327.5Q603 331 585 318Q575 277 547.5 230Q520 183 486.5 137Q453 91 422 58ZM389 233Q388 243 380.5 250Q373 257 355 259V824Q355 843 367 851.5Q379 860 424 860H568Q621 860 657 859Q693 858 708 856Q720 855 725 851Q730 847 734 840Q739 825 748.5 777Q758 729 768 666H781L783 848Q801 852 806.5 857.5Q812 863 812 873Q812 884 802.5 891.5Q793 899 767.5 903.5Q742 908 694 910Q646 912 569 912H420Q374 912 348 905Q322 898 312 881Q302 864 302 835V222ZM770 363Q822 404 857.5 445.5Q893 487 914.5 525Q936 563 945.5 596Q955 629 955.5 654Q956 679 949.5 694.5Q943 710 931.5 712Q920 714 907 701Q898 658 880 599.5Q862 541 833 480.5Q804 420 758 373ZM177 350Q194 437 188 506Q182 575 165 623Q148 671 130 697Q119 714 105 725Q91 736 77.5 739.5Q64 743 55 736Q44 726 46.5 710.5Q49 695 59 681Q86 653 108.5 602Q131 551 145 485.5Q159 420 158 350Z"/></svg></div>
   <div class="hero-in">
-    <p class="eyebrow j hr d1">Volumen III · El alma de Asia</p>
     <h1 class="hr d2">Alma</h1>
     <p class="sub hr d3">La filosofía, la religión y la tradición cultural detrás de las civilizaciones que estudiamos.</p>
     <a class="cta hr d4" href="#idea">Entrar <span aria-hidden="true">↓</span></a>
@@ -251,14 +232,8 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
 
 <section class="idea" id="idea">
   <div class="wrap">
-    <p class="eyebrow rv">La idea</p>
     <h2 class="rv">Los imperios caen. Las fronteras se mueven. Lo que una civilización cree sobre sí misma es lo que atraviesa los siglos.</h2>
     <p class="lead rv">Alma estudia las ideas con las que China, Japón y Corea se explican a sí mismas y deciden. No para volverlas misteriosas, sino para entender por qué deciden como deciden.</p>
-  </div>
-  <div class="triad rv">
-    <a href="https://renzo34990.github.io/gengis-biblioteca/"><b>Vol. I · Nalanda</b><span>Qué ocurrió. El pasado, país por país.</span></a>
-    <a href="https://renzo34990.github.io/forja-guerra/"><b>Vol. II · Forja</b><span>Qué costó. Las guerras y su herencia.</span></a>
-    <div class="on"><b>Vol. III · Alma</b><span>Qué lo sostiene. Las ideas que dan sentido.</span></div>
   </div>
 </section>
 
@@ -278,11 +253,6 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
 </section>
 
 <section id="cuadernos">
-  <div class="sec-head">
-    <p class="eyebrow j rv">Los cuadernos</p>
-    <h2 class="rv">Quince cuadernos, cinco actos.</h2>
-    <p class="l rv">Se leen en orden cronológico, aunque se construyen en otro: primero tres cuadernos piloto para probar el método. Todavía ninguno está publicado.</p>
-  </div>
   <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">I</span><div><h3><span class="vh">Acto I. </span>Lo anterior a las escuelas</h3><p>Antes de que hubiera escuelas, hubo cielo, ancestros y espíritus. Lo que cada sociedad creyó primero explica lo que aceptó después.</p><p class="ca">Cuadernos 01 a 03</p></div></div><ul class="cds"><li class="cd" data-c="orden raiz"><details><summary><span class="n">01</span><span><span class="t">El Mandato del Cielo</span><span class="m">China · desde el s. XI a. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden, Raíz"><i class="c-orden"></i><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Cómo se legitima a quien gobierna: el Cielo, los ancestros y el derecho a ser reemplazado.</p></details></li><li class="cd" data-c="raiz"><details><summary><span class="n">02</span><span><span class="t">Kami y el origen de Yamato</span><span class="m">Japón · hasta el s. VIII</span></span><span class="dots" role="img" aria-label="Corrientes: Raíz"><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">El sintoísmo y los mitos que sostuvieron a la corte, entre ellos el Kojiki y el Nihon shoki.</p></details></li><li class="cd" data-c="raiz"><details><summary><span class="n">03</span><span><span class="t">Dangun y el chamanismo coreano</span><span class="m">Corea · mito fundacional y presente</span></span><span class="dots" role="img" aria-label="Corrientes: Raíz"><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Un mito de origen y una religión popular que sigue viva.</p></details></li></ul></div>
   <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">II</span><div><h3><span class="vh">Acto II. </span>Las escuelas que ordenan el caos</h3><p>Cuando los reinos se disputaban el territorio, pensadores distintos respondieron a la misma pregunta: cómo se vive y se gobierna cuando todo se desordena.</p><p class="ca">Cuadernos 04 a 06</p></div></div><ul class="cds"><li class="cd" data-c="orden"><details><summary><span class="n">04</span><span><span class="t">Confucio y la familia como Estado</span><span class="m">China · desde el s. VI a. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st pil">Piloto</span></summary><p class="d">Ren, li y xiao: una ética de relaciones convertida en doctrina de gobierno.</p></details></li><li class="cd" data-c="vacio"><details><summary><span class="n">05</span><span><span class="t">Daoísmo: el arte de no forzar</span><span class="m">China · Reinos Combatientes</span></span><span class="dots" role="img" aria-label="Corrientes: Vacío"><i class="c-vacio"></i></span><span class="st">Por investigar</span></summary><p class="d">Laozi y Zhuangzi frente a un mundo que exige actuar.</p></details></li><li class="cd" data-c="orden"><details><summary><span class="n">06</span><span><span class="t">Legalismo, Qin y Han</span><span class="m">China · 221 a. C. a 220 d. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st">Por investigar</span></summary><p class="d">Dos recetas para el Estado, y cómo una terminó adoptando a la otra.</p></details></li></ul></div>
   <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">III</span><div><h3><span class="vh">Acto III. </span>El Camino que viene de la India</h3><p>Una idea cruza desierto, mar y montaña, y en cada país se queda y cambia. Nalanda, el nombre de nuestra biblioteca, fue un gran centro de estudio budista en la India.</p><p class="ca">Cuadernos 07 a 09</p></div></div><ul class="cds"><li class="cd" data-c="camino"><details><summary><span class="n">07</span><span><span class="t">El budismo cruza la Ruta de la Seda</span><span class="m">China · s. I al X</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st">Por investigar</span></summary><p class="d">Traducir una idea de India a China: monasterios, textos y la escuela Chan.</p></details></li><li class="cd" data-c="camino"><details><summary><span class="n">08</span><span><span class="t">Corea, el puente</span><span class="m">Corea · Tres Reinos y Silla</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st pil">Piloto</span></summary><p class="d">Un budismo que llega por tierra, se transforma y sigue viaje hacia Japón.</p></details></li><li class="cd" data-c="camino"><details><summary><span class="n">09</span><span><span class="t">De Nara al Zen</span><span class="m">Japón · s. VI al XIII</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st">Por investigar</span></summary><p class="d">De religión de Estado a prácticas de monjes y guerreros.</p></details></li></ul></div>
@@ -291,18 +261,7 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
 </section>
 
 <section id="lectura">
-  <div class="sec-head">
-    <p class="eyebrow j rv">Cómo se lee un cuaderno</p>
-    <h2 class="rv">Cuatro capas, una misma pregunta.</h2>
-    <p class="l rv">Cada cuaderno recorre las mismas cuatro capas, para que el lector compare una creencia con otra sin perderse.</p>
-  </div>
-  <div class="capas rv">
-    <div><span class="r">I</span><h3>Pregunta</h3><p>Qué problema humano responde la idea.</p></div>
-    <div><span class="r">II</span><h3>Práctica</h3><p>Cómo se vive en lo cotidiano.</p></div>
-    <div><span class="r">III</span><h3>Poder</h3><p>Cómo la usó el Estado y qué le hizo a ella.</p></div>
-    <div><span class="r" style="color:var(--luz)">IV</span><h3>Huella</h3><p>Qué deja hoy, también en el Perú.</p></div>
-  </div>
-  <div class="reg">
+  <div class="reg" style="margin-top:0">
     <p class="eyebrow rv">Tres registros de certeza</p>
     <h3 class="rv">Lo que se cuenta, lo que se lee, lo que se comprueba.</h3>
     <p class="exa rv">Cada afirmación lleva una etiqueta. Ejemplo ilustrativo con el mito de Dangun; no es contenido final.</p>
