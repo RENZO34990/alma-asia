@@ -16,15 +16,15 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
 :root{
-  --noche:#081412;--agua:#0F1F1C;--agua2:#0C1A17;--bruma:#8FA9A1;--niebla:#C9DAD3;--perla:#EAF2EE;
+  --noche:#081412;--agua:#0F1F1C;--bruma:#8FA9A1;--niebla:#C9DAD3;--perla:#EAF2EE;
   --jade:#5DB5A4;--luz:#B8F0E0;
   --orden:#C8A45E;--vacio:#7FA3C7;--camino:#D9895A;--raiz:#A08FBF;
   --line:rgba(234,242,238,.14);--line2:rgba(234,242,238,.24);
-  --ease:cubic-bezier(.22,1,.36,1);
+  --ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.77,0,.175,1);
   --serif:'Spectral',Georgia,'Times New Roman',serif;
   --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
-  --gut:clamp(20px,6.7vw,96px);
+  --gutter:clamp(20px,6.7vw,96px);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -32,27 +32,30 @@ body{margin:0;background:var(--noche);color:var(--perla);font-family:var(--sans)
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 :focus-visible{outline:2px solid var(--jade);outline-offset:3px}
-.skip{position:absolute;left:12px;top:-60px;background:var(--perla);color:var(--noche);padding:10px 16px;z-index:200;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+p,h1,h2,h3,h4{margin:0}
+h1,h2,h3{font-family:var(--serif);font-weight:300;text-wrap:balance}
+.skip{position:absolute;left:12px;top:-60px;background:var(--perla);color:var(--noche);padding:10px 16px;z-index:400;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 .skip:focus{top:12px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--bruma);margin:0}
-.eyebrow.j{color:var(--jade)}
-h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;text-wrap:balance}
-p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--jade);font-weight:500}
 .gl{display:block;width:1em;height:1em;fill:currentColor}
+main,footer,header.hero{position:relative;z-index:2}
 
-/* hilo de lectura */
-#thread{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--jade);transform:scaleX(0);transform-origin:0 50%;z-index:120;opacity:.9}
+/* hilo de lectura (igual que Nalanda y Forja) */
+.thread{position:fixed;left:clamp(10px,2.2vw,32px);top:14vh;bottom:14vh;width:1px;background:rgba(93,181,164,.28);z-index:95;pointer-events:none}
+.thread i{display:block;width:100%;height:100%;background:var(--jade);transform-origin:top;transform:scaleY(0)}
+.thread::after{content:"";position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;background:var(--jade);top:calc(var(--p,0) * 100%);transform:translateY(-50%)}
+@media (max-width:860px){.thread{display:none}}
 
-/* barra superior */
-.top{position:fixed;left:0;right:0;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--gut);background:linear-gradient(180deg,rgba(8,20,18,.94),rgba(8,20,18,.72));backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.tb-word{display:flex;align-items:center;gap:12px;min-height:44px;font-family:var(--serif);font-weight:300;font-size:20px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-.tb-word svg{width:26px;height:26px}
-.tb-right{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
-.tb-back{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;color:var(--niebla);transition:color .5s var(--ease)}
-.tb-vol{color:var(--bruma);padding:0 0 0 6px}
-@media (hover:hover){.tb-back:hover{color:var(--jade)}}
+/* barra superior (igual que Forja) */
+.topbar{position:fixed;inset:0 0 auto 0;height:72px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 var(--gutter);border-bottom:1px solid transparent;background:rgba(8,20,18,0);transition:background-color .45s var(--ease),border-color .45s var(--ease)}
+.topbar.solid{background:rgba(8,20,18,.92);border-bottom-color:var(--line)}
+.tb-word{font:italic 300 21px/1 var(--serif);letter-spacing:.02em;color:var(--perla);padding:14px 0}
+.tb-right{display:flex;align-items:center;gap:clamp(18px,2.6vw,32px);font:400 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.tb-back{color:var(--bruma);padding:14px 0;white-space:nowrap;transition:color .25s var(--ease)}
 .tb-back:active,.tb-word:active{transform:scale(.97)}
+@media (hover:hover){.tb-back:hover{color:var(--perla)}}
+.tb-vol{color:var(--bruma)}
 
 /* intro */
 #intro{position:fixed;inset:0;z-index:300;background:var(--noche);display:none;align-items:center;justify-content:center;transition:opacity 1.1s var(--ease)}
@@ -60,138 +63,160 @@ html.intro-on #intro{display:flex}
 #intro.out{opacity:0;pointer-events:none}
 #intro svg{width:min(34vw,200px);height:auto;overflow:visible}
 #intro .rg{fill:none;stroke:var(--perla);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:draw 1.6s var(--ease) forwards}
-#intro .rg:nth-child(1){animation-delay:.35s}
-#intro .rg:nth-child(2){animation-delay:.75s}
-#intro .rg:nth-child(3){animation-delay:1.15s}
+#intro .rg:nth-child(1){animation-delay:.35s}#intro .rg:nth-child(2){animation-delay:.75s}#intro .rg:nth-child(3){animation-delay:1.15s}
 #intro .pt{fill:var(--luz);opacity:0;transform-origin:32px 32px;animation:pt .9s var(--ease) 1.9s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes pt{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
 
-/* hero */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:calc(110px + 6vh) var(--gut) 96px;overflow:hidden}
-.rings{position:absolute;right:-16%;top:50%;width:min(1150px,118vw);height:auto;transform:translateY(-50%);pointer-events:none;fill:none;stroke:var(--jade);stroke-width:1.2}
-.rings g{transform-origin:500px 500px;animation:breathe 8s ease-in-out infinite}
-.rings g:nth-of-type(2){animation-delay:-2s}.rings g:nth-of-type(3){animation-delay:-4s}.rings g:nth-of-type(4){animation-delay:-6s}
+/* cabecera (misma composición que Nalanda) */
+header.hero{padding:calc(72px + 11vh) 8vw 7vh;max-width:1180px;margin:0 auto;overflow-x:clip;overflow-y:visible}
+.bg-rings{position:absolute;left:50%;top:46%;width:min(1100px,120vw);height:auto;transform:translate(-50%,-50%);pointer-events:none;fill:none;stroke:var(--jade);stroke-width:1.2;z-index:-1}
+.bg-rings g{transform-origin:500px 500px;animation:breathe 8s ease-in-out infinite}
+.bg-rings g:nth-of-type(2){animation-delay:-2s}.bg-rings g:nth-of-type(3){animation-delay:-4s}.bg-rings g:nth-of-type(4){animation-delay:-6s}
 @keyframes breathe{0%,100%{transform:scale(.98)}50%{transform:scale(1)}}
-.rings .pt{fill:var(--luz);stroke:none}
+.hero .mark{position:absolute;left:50%;top:46%;width:clamp(220px,30vw,420px);transform:translate(-50%,-50%);color:var(--jade);opacity:.05;pointer-events:none;z-index:-1}
 .hero .mark .gl{width:100%;height:auto}
-.hero .mark{position:absolute;right:clamp(20px,12vw,180px);top:50%;transform:translateY(-62%);width:clamp(180px,26vw,380px);color:var(--jade);opacity:.06;pointer-events:none}
-.hero-in{position:relative;max-width:920px}
-.hero h1{font-size:clamp(88px,15vw,208px);line-height:.95;letter-spacing:.06em;text-transform:uppercase}
-.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(22px,2.4vw,32px);line-height:1.4;color:var(--niebla);max-width:26em;margin-top:40px}
-.hero .cta{display:inline-flex;align-items:center;gap:12px;margin-top:48px;min-height:48px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--jade);border-bottom:1px solid rgba(93,181,164,.5);padding-bottom:4px;transition:color .5s var(--ease),border-color .5s var(--ease)}
-@media (hover:hover){.hero .cta:hover{color:var(--perla);border-color:var(--perla)}}
-.hero .cta:active{transform:scale(.97)}
-/* entrada lenta */
+.header-inner{max-width:700px;margin:0 auto;text-align:center}
+.hero-rule{width:56px;height:1px;background:var(--jade);margin:0 auto 1.8rem}
+header.hero h1{font-size:clamp(2.6rem,8.4vw,6rem);text-transform:uppercase;line-height:1.12;letter-spacing:.14em;padding-left:.14em;margin:0 0 1.8rem;color:var(--perla)}
+header.hero p.dek{max-width:610px;color:var(--niebla);margin:0 auto;font-size:clamp(1rem,1.5vw,1.15rem);font-weight:400;line-height:1.92}
+.seal{display:block;width:74px;height:74px;margin:2.6rem auto 0;overflow:visible}
+.seal path{fill:none;stroke:var(--perla);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);transition:stroke-dashoffset 2.2s var(--ease-io)}
+.seal circle{fill:var(--luz);opacity:0;transform-origin:32px 32px;transform:scale(.2);transition:opacity 1s var(--ease) 2s,transform 1s var(--ease) 2s}
+html.ready .seal path{stroke-dashoffset:0}
+html.ready .seal path:nth-child(2){transition-delay:.4s}
+html.ready .seal path:nth-child(3){transition-delay:.8s}
+html.ready .seal circle{opacity:1;transform:none}
 .hr{opacity:0;transform:translateY(14px);transition:opacity 1.6s var(--ease),transform 1.6s var(--ease)}
 html.ready .hr{opacity:1;transform:none}
-.hero h1.hr{letter-spacing:.2em;transition:opacity 2.2s var(--ease),transform 2.2s var(--ease),letter-spacing 2.6s var(--ease)}
-html.ready .hero h1.hr{letter-spacing:.06em}
-.d1{transition-delay:.15s}.d2{transition-delay:.5s}.d3{transition-delay:.9s}.d4{transition-delay:1.2s}
-
-/* secciones */
-section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--line)}
-.rv{opacity:0;transform:translateY(14px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.d1{transition-delay:.1s}.d2{transition-delay:.4s}.d3{transition-delay:.8s}
+.rv{opacity:0;transform:translateY(14px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0s)}
 .rv.in{opacity:1;transform:none}
-.idea .wrap{max-width:900px}
-.idea h2{font-size:clamp(30px,3.6vw,50px);line-height:1.2}
-.idea p.lead{margin-top:32px;font-size:18px;line-height:1.75;color:var(--bruma);max-width:34em}
 
-.sec-head{max-width:760px;margin-bottom:48px}
-.sec-head h2{font-size:clamp(30px,3.4vw,46px);line-height:1.15;margin-top:16px}
-.sec-head p.l{margin-top:20px;color:var(--bruma);font-size:17px;max-width:36em}
-
-/* corrientes */
-.cor{border-top:1px solid var(--line2)}
-.cor-btn{display:grid;grid-template-columns:minmax(72px,120px) minmax(0,1fr) auto;gap:8px 32px;align-items:center;width:100%;padding:26px 0;border-bottom:1px solid var(--line);min-height:44px;transition:background .5s var(--ease),padding .5s var(--ease)}
-.cor-btn .gl{font-size:64px;color:var(--c);transition:transform 1s var(--ease)}
-.cor-btn .nm{display:block;font-family:var(--serif);font-weight:300;font-size:28px;line-height:1.2}
-.cor-btn .rd{display:block;margin-top:2px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--bruma)}
-.cor-btn .ds{display:block;margin-top:8px;font-size:15px;line-height:1.55;color:var(--bruma);max-width:46em}
-.cor-btn .ct{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c);white-space:nowrap}
-.cor-btn[aria-pressed="true"]{background:linear-gradient(90deg,rgba(234,242,238,.04),transparent 70%);padding-left:16px}
-.cor-btn[aria-pressed="true"] .ct::after{content:' · activa'}
-@media (hover:hover){.cor-btn:hover .gl{transform:scale(1.05)}}
-.cor-btn:active{transform:scale(.99)}
-.cor-note{margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);min-height:20px}
+/* franja de corrientes (lugar de la franja de épocas de Nalanda) */
+.corr{position:relative;z-index:2;margin:0 0 1.2rem;padding:.55rem var(--gutter);border-top:1px solid rgba(93,181,164,.5);border-bottom:1px solid rgba(93,181,164,.5);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px clamp(14px,3vw,44px)}
+.corr .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--bruma);padding:8px 0}
+.cor-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:6px 8px;transition:background .5s var(--ease)}
+.cor-btn .gl{font-size:34px;color:var(--c);transition:transform .8s var(--ease)}
+.cor-btn .nm{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.28rem;letter-spacing:.14em;text-transform:uppercase;color:var(--niebla)}
+.cor-btn .ct{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--c)}
+.cor-btn[aria-pressed="true"]{background:rgba(234,242,238,.07)}
+.cor-btn[aria-pressed="true"] .nm{color:var(--perla)}
+@media (hover:hover){.cor-btn:hover .gl{transform:scale(1.08)}}
+.cor-btn:active{transform:scale(.97)}
 .c-orden{--c:var(--orden)}.c-vacio{--c:var(--vacio)}.c-camino{--c:var(--camino)}.c-raiz{--c:var(--raiz)}
-@media (max-width:720px){.cor-btn{grid-template-columns:64px minmax(0,1fr);gap:4px 20px}.cor-btn .gl{font-size:48px}.cor-btn .ct{grid-column:2}}
+.cor-note{position:relative;z-index:2;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);min-height:22px;margin-top:6px}
 
-/* actos y cuadernos */
-.acto{margin-top:72px}
-.acto:first-of-type{margin-top:0}
-.acto-h{display:grid;grid-template-columns:minmax(80px,140px) minmax(0,1fr);gap:8px 32px;padding-bottom:20px;border-bottom:1px solid var(--line2)}
-.acto-h .num{font-family:var(--serif);font-weight:300;font-size:clamp(48px,6vw,84px);line-height:.9;color:var(--jade);opacity:.9}
-.acto-h h3{font-size:clamp(24px,2.6vw,34px);line-height:1.2}
-.acto-h p{margin-top:10px;color:var(--bruma);font-size:15px;line-height:1.6;max-width:44em}
-.acto-h .ca{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bruma);margin-top:10px}
-@media (max-width:720px){.acto-h{grid-template-columns:1fr}}
-.cds{list-style:none;margin:0;padding:0}
-.cd{border-bottom:1px solid var(--line);transition:opacity .8s var(--ease)}
-.cd.is-dim{opacity:.26}
-.cd summary{list-style:none;display:grid;grid-template-columns:48px minmax(0,1fr) auto minmax(110px,150px);gap:6px 20px;align-items:center;padding:20px 0;min-height:60px;cursor:pointer;transition:padding .5s var(--ease),background .5s var(--ease)}
-.cd summary::-webkit-details-marker{display:none}
-.cd .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--jade)}
-.cd .t{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(20px,2vw,26px);line-height:1.25}
-.cd .m{display:block;margin-top:2px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--bruma)}
-.cd .dots{display:flex;gap:6px;align-items:center}
-.cd .dots i{display:block;width:22px;height:5px;background:var(--c)}
-.cd .st{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--bruma);text-align:right}
-.cd .st.pil{color:var(--jade)}
-.cd p.d{padding:0 0 22px 68px;max-width:48em;color:var(--niebla);font-size:16px;line-height:1.65}
-.cd[open] summary{padding-left:8px}
-@media (hover:hover){.cd summary:hover{padding-left:8px;background:linear-gradient(90deg,rgba(234,242,238,.04),transparent 60%)}}
-.cd summary:active{transform:scale(.995)}
-@media (max-width:760px){.cd summary{grid-template-columns:36px minmax(0,1fr);}.cd .dots{grid-column:2}.cd .st{grid-column:2;text-align:left}.cd p.d{padding-left:56px}}
+/* contenido (misma caja que Nalanda) */
+main{max-width:1180px;margin:0 auto;padding:2rem 8vw 6rem}
+.region-block{margin-bottom:5.4rem;position:relative;margin-top:3rem;--region-accent:var(--jade)}
+.region-head{display:flex;align-items:flex-end;flex-wrap:wrap;gap:.6rem 1.1rem;padding-bottom:1.2rem;margin-bottom:2.2rem;position:relative}
+.region-head::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,var(--jade) 0%,var(--line) 34%,transparent 100%)}
+.region-index{font-family:var(--serif);font-weight:300;font-style:italic;font-size:1.5rem;color:var(--jade);line-height:1}
+.region-head-text{display:flex;flex-direction:column;gap:.3rem}
+.region-head h2{font-weight:400;font-size:clamp(1.35rem,2.2vw,1.7rem);color:var(--perla)}
+.region-coord{font-family:var(--mono);font-size:12px;color:var(--bruma);letter-spacing:.03em}
+.region-head .count{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--bruma);text-transform:uppercase;letter-spacing:.06em;align-self:flex-end}
 
-/* cómo se lee */
-.reg{margin-top:72px;max-width:900px}
-.reg h3{font-size:clamp(24px,2.6vw,34px);margin:14px 0 8px}
-.reg .exa{color:var(--bruma);font-size:15px;max-width:40em}
-.rows{margin-top:28px;border-top:1px solid var(--line2)}
-.rw{display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px 28px;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.rw .tag{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--tc)}
-.rw p{color:var(--niebla);font-size:16px;line-height:1.65}
-.tr{--tc:var(--raiz)}.tx{--tc:var(--vacio)}.hi{--tc:var(--orden)}
-@media (max-width:640px){.rw{grid-template-columns:1fr}}
-.nota{margin-top:20px;font-size:14px;color:var(--bruma);max-width:40em}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));gap:1.7rem}
+.card{background:var(--agua);padding:1.9rem;display:flex;flex-direction:column;min-height:206px;position:relative;border:1px solid var(--line);transition:opacity .8s var(--ease),border-color .3s ease}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:1rem}
+.card-ref{font-family:var(--mono);font-size:12px;color:var(--bruma);letter-spacing:.04em}
+.cbadges{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:flex-end}
+.cbadge{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--c)}
+.card .tag{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;display:inline-block;width:fit-content;margin-bottom:.9rem;color:var(--bruma)}
+.card.pilot .tag{color:var(--jade)}
+.card h3{font-weight:400;font-size:1.2rem;margin:0 0 .65rem;line-height:1.35;color:var(--perla)}
+.card p{font-size:.92rem;color:var(--niebla);flex-grow:1;line-height:1.72;opacity:.88}
+.card .go{margin-top:1.2rem;font-family:var(--mono);font-size:12px;color:var(--bruma);letter-spacing:.06em}
+.card.is-dim{opacity:.22}
 
-/* colección */
-.col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line2)}
-.col a,.col div{display:block;padding:28px 28px 32px 0}
-.col > *+*{padding-left:28px;border-left:1px solid var(--line)}
-.col .v{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
-.col h3{font-size:30px;margin:10px 0 8px;letter-spacing:.06em;text-transform:uppercase}
-.col p{font-size:15px;line-height:1.6;color:var(--bruma)}
-.col .go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--jade)}
-.col .here{border-left-color:rgba(93,181,164,.5)}
-.col .here .v{color:var(--jade)}
-@media (hover:hover){.col a:hover h3{color:var(--jade)}}
-.col a{transition:color .5s var(--ease)}.col a:active{transform:scale(.99)}
-@media (max-width:760px){.col{grid-template-columns:1fr}.col > *+*{padding-left:0;border-left:0;border-top:1px solid var(--line)}.col a,.col div{padding:24px 0}}
+.acto-list{padding-bottom:.4rem}
+.acto+.acto{border-top:1px solid var(--line)}
+.acto{position:relative}
+.acto-divider{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:baseline;flex-wrap:wrap;column-gap:1rem;row-gap:.2rem;padding:1.35rem 0 1.1rem}
+.acto-divider:focus-visible{outline:2px solid var(--jade);outline-offset:4px}
+.acto-num{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.3rem;color:var(--jade);display:inline-block;min-width:2.6rem;transition:transform .4s var(--ease)}
+.acto-divider:hover .acto-num,.acto.open .acto-num{transform:translateX(3px)}
+.acto-title{font-family:var(--serif);font-weight:400;font-size:1.1rem;color:var(--perla)}
+.acto-years{font-family:var(--mono);font-size:12px;color:var(--bruma);letter-spacing:.04em;margin-left:auto;opacity:0;transform:translateY(-3px);pointer-events:none;transition:opacity .4s ease,transform .4s var(--ease),letter-spacing .4s ease,color .4s ease}
+.acto-meta{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:12px;color:var(--bruma);text-transform:uppercase;letter-spacing:.05em}
+.acto-dots{display:inline-flex;gap:.3rem}
+.acto-dots i{width:8px;height:8px;border-radius:50%;display:block;background:var(--c)}
+.acto-chev{width:9px;height:9px;border-right:1.5px solid var(--jade);border-bottom:1.5px solid var(--jade);transform:rotate(45deg) translate(-2px,-2px);transition:transform .4s var(--ease)}
+.acto.open .acto-chev{transform:rotate(225deg) translate(-2px,-2px)}
+.acto-blurb{display:block;flex-basis:100%;font-size:.9rem;color:var(--niebla);font-weight:400;font-style:italic;line-height:1.62;margin:.3rem 0 0;box-sizing:border-box;padding-right:max(0px,calc(100% - 62ch));opacity:0;transform:translateY(-3px);transition:opacity .4s ease,transform .4s var(--ease)}
+.acto:not(.open) .acto-blurb{position:absolute;left:0;top:calc(100% - .6rem);z-index:5;pointer-events:none;width:min(62ch,100%);background:var(--agua);border:1px solid var(--line2);box-shadow:0 10px 24px rgba(0,0,0,.4);padding:.7rem 1rem .8rem;margin:0}
+.acto-divider:hover .acto-years,.acto-divider:focus-visible .acto-years,.acto.open .acto-years{opacity:1;transform:none;letter-spacing:.09em;color:var(--jade)}
+.acto-divider:hover .acto-blurb,.acto-divider:focus-visible .acto-blurb,.acto.open .acto-blurb{opacity:1;transform:none}
+@media (hover:none){.acto-years{opacity:1;transform:none;pointer-events:auto}}
+.acto-panel{display:grid;grid-template-rows:1fr}
+.acto-cards{min-height:0;overflow:hidden;padding:.6rem 12px 1.8rem 4px;margin:0 -12px 0 -4px;transition:padding .55s var(--ease-io)}
+.js .acto:not(.open) .acto-cards{padding-top:0;padding-bottom:0}
+.js .acto-panel{grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .55s var(--ease-io),visibility 0s linear .55s}
+.js .acto.open .acto-panel{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .55s var(--ease-io),visibility 0s}
 
-/* cierre */
-.seal-wrap{padding:56px var(--gut) 72px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
-.publisher-seal{display:flex;align-items:center;gap:16px;min-height:48px}
-.publisher-seal svg{width:40px;height:40px;flex:none}
-.publisher-seal b{display:block;font-family:var(--serif);font-weight:300;font-size:20px;letter-spacing:.06em}
-.publisher-seal small{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
-@media (hover:hover){.publisher-seal:hover b{color:var(--jade)}}
+/* colección editorial (igual que Nalanda) */
+.collection{margin-top:3.6rem;padding-top:3.6rem;border-top:1px solid var(--line)}
+.collection .eyebrow{display:block;margin-bottom:1.6rem}
+.collection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+.collection-grid>div,.collection-grid>a{padding:1.8rem;border-right:1px solid var(--line);display:block;color:inherit;transition:background .3s ease}
+.collection-grid>:last-child{border-right:none}
+.collection-grid>div[aria-current]{background:rgba(93,181,164,.07)}
+.collection-grid .go{display:block;margin-top:.9rem;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--jade)}
+.collection-grid>a:active{transform:scale(.99)}
+@media (hover:hover){.collection-grid>a:hover{background:rgba(234,242,238,.05)}}
+.collection-grid .vol{font-family:var(--mono);font-size:12px;color:var(--bruma);margin-bottom:.6rem;display:block}
+.collection-grid h4{font-family:var(--serif);font-weight:400;font-size:1.2rem;margin:0 0 .5rem;color:var(--perla)}
+.collection-grid p{font-size:.9rem;color:var(--niebla);line-height:1.6;opacity:.88}
+.collection-grid .status{font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--bruma);margin-top:.9rem;display:block}
+.collection-grid>[aria-current] .status{color:var(--jade)}
+@media (max-width:760px){.collection-grid{grid-template-columns:1fr}.collection-grid>div,.collection-grid>a{border-right:0;border-bottom:1px solid var(--line)}.collection-grid>:last-child{border-bottom:0}}
+
+/* El Club (igual que Nalanda y Forja) */
+.dept{padding-block:clamp(56px,8vw,112px) 0;margin-top:3.6rem;border-top:1px solid var(--line)}
+.dept-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px clamp(32px,6vw,96px);align-items:start}
+.dept h2{font:300 clamp(34px,4.4vw,60px)/1.05 var(--serif);margin-top:16px;text-wrap:balance}
+.dept p.lead{margin-top:24px;font-size:17px;line-height:1.75;color:var(--niebla)}
+.club-epic{font:italic 300 clamp(26px,3vw,40px)/1.18 var(--serif);color:var(--perla);max-width:20ch;margin-top:26px;text-wrap:balance}
+.club-figs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.6vw,18px);align-self:center}
+.club-figs li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:24px 10px 20px;background:var(--agua);border:1px solid var(--line);border-top:3px solid var(--tone)}
+.club-figs .avatar{width:80px;height:80px;margin-bottom:10px;overflow:visible}
+.club-figs .ring-a{fill:color-mix(in srgb,var(--tone) 10%,transparent);stroke:var(--tone);stroke-width:1}
+.club-figs .glyph-a{fill:none;stroke:var(--tone);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.club-figs strong{font:400 17px/1.2 var(--serif);color:var(--perla)}
+.club-figs em{font-style:normal;font-size:13px;color:var(--bruma);line-height:1.35}
+.club-figs .soc{margin-top:8px;font:400 12px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--tone)}
+@media (max-width:560px){.club-figs{grid-template-columns:1fr}}
+.dept .links{margin-top:32px;display:flex;flex-wrap:wrap;gap:4px 36px}
+.tl{display:inline-flex;gap:10px;padding:14px 0;font:500 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--perla);border-bottom:1px solid var(--line2);transition:color .3s var(--ease),border-color .3s var(--ease),transform .2s var(--ease)}
+.tl:active{transform:scale(.97)}
+.tl span{transition:transform .3s var(--ease)}
+@media (hover:hover){.tl:hover{border-color:var(--jade)}.tl:hover span{transform:translateX(5px)}}
+@media (max-width:860px){.dept-grid{grid-template-columns:1fr}}
+
+/* sello editorial (igual que Nalanda y Forja) */
+footer{border-top:1px solid var(--line);padding:54px 0 60px;text-align:center}
+.publisher-seal{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:2px;color:var(--bruma);transition:background .3s ease}
+.publisher-seal svg{width:26px;height:26px;flex-shrink:0}
+.publisher-seal .ps-text{text-align:left;font:400 12px/1.5 var(--mono);letter-spacing:.08em}
+.publisher-seal strong{display:block;color:var(--perla);font-weight:500;font-size:13px}
 .publisher-seal:active{transform:scale(.97)}
-.seal-wrap p{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--bruma)}
+@media (hover:hover){.publisher-seal:hover{background:rgba(234,242,238,.06)}}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .rings g{animation:none}
+  .bg-rings g{animation:none}
   .hr,.rv{opacity:1;transform:none;transition:none}
-  .hero h1.hr{letter-spacing:.06em;transition:none}
+  .seal path{stroke-dashoffset:0;transition:none}.seal circle{opacity:1;transform:none;transition:none}
   #intro{display:none!important}
+  .js .acto-panel,.acto-cards,.acto-num,.acto-years,.acto-blurb,.acto-chev{transition:none}
 }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
-<div id="thread" aria-hidden="true"></div>
 
 <div id="intro" aria-hidden="true">
   <svg viewBox="0 0 64 64">
@@ -202,97 +227,117 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
   </svg>
 </div>
 
-<header class="top">
-  <a class="tb-word" href="#inicio" aria-label="Alma, inicio">
-    <svg aria-hidden="true" viewBox="0 0 64 64" fill="none" stroke="#EAF2EE" stroke-width="3.4" stroke-linecap="round"><path d="M41 32 A9 9 0 1 1 32 23"/><path d="M15.06 33.48 A17 17 0 1 1 30.52 48.94"/><path d="M27.66 7.38 A25 25 0 1 1 7.38 27.66"/><circle cx="32" cy="32" r="3.6" fill="#B8F0E0" stroke="none"/></svg>
-    Alma
-  </a>
+<div class="thread" id="thread" aria-hidden="true"><i></i></div>
+
+<header class="topbar" id="topbar">
+  <a class="tb-word" href="#inicio" aria-label="Alma, ir al inicio">Alma</a>
   <div class="tb-right">
-    <a class="tb-back" href="https://renzo34990.github.io/pr-landing/">← Triveni</a>
+    <a class="tb-back" href="https://renzo34990.github.io/pr-landing/">&larr; Triveni</a>
     <span class="tb-vol">Vol. III</span>
   </div>
 </header>
 
-<main id="contenido">
-<div class="hero" id="inicio">
-  <svg class="rings" aria-hidden="true" viewBox="0 0 1000 1000">
-    <g><circle cx="500" cy="500" r="120" stroke-opacity=".22"/></g>
-    <g><circle cx="500" cy="500" r="230" stroke-opacity=".15"/></g>
-    <g><circle cx="500" cy="500" r="350" stroke-opacity=".1"/></g>
-    <g><circle cx="500" cy="500" r="480" stroke-opacity=".06"/></g>
-    <circle class="pt" cx="500" cy="500" r="3.6"/>
+<header class="hero" id="inicio">
+  <svg class="bg-rings" aria-hidden="true" viewBox="0 0 1000 1000">
+    <g><circle cx="500" cy="500" r="120" stroke-opacity=".2"/></g>
+    <g><circle cx="500" cy="500" r="230" stroke-opacity=".14"/></g>
+    <g><circle cx="500" cy="500" r="350" stroke-opacity=".09"/></g>
+    <g><circle cx="500" cy="500" r="480" stroke-opacity=".055"/></g>
   </svg>
   <div class="mark" aria-hidden="true"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M435 50Q500 90 542 128.5Q584 167 605.5 202Q627 237 634 263.5Q641 290 635.5 307Q630 324 616.5 327.5Q603 331 585 318Q575 277 547.5 230Q520 183 486.5 137Q453 91 422 58ZM389 233Q388 243 380.5 250Q373 257 355 259V824Q355 843 367 851.5Q379 860 424 860H568Q621 860 657 859Q693 858 708 856Q720 855 725 851Q730 847 734 840Q739 825 748.5 777Q758 729 768 666H781L783 848Q801 852 806.5 857.5Q812 863 812 873Q812 884 802.5 891.5Q793 899 767.5 903.5Q742 908 694 910Q646 912 569 912H420Q374 912 348 905Q322 898 312 881Q302 864 302 835V222ZM770 363Q822 404 857.5 445.5Q893 487 914.5 525Q936 563 945.5 596Q955 629 955.5 654Q956 679 949.5 694.5Q943 710 931.5 712Q920 714 907 701Q898 658 880 599.5Q862 541 833 480.5Q804 420 758 373ZM177 350Q194 437 188 506Q182 575 165 623Q148 671 130 697Q119 714 105 725Q91 736 77.5 739.5Q64 743 55 736Q44 726 46.5 710.5Q49 695 59 681Q86 653 108.5 602Q131 551 145 485.5Q159 420 158 350Z"/></svg></div>
-  <div class="hero-in">
+  <div class="header-inner">
+    <div class="hero-rule hr d1"></div>
     <h1 class="hr d2">Alma</h1>
-    <p class="sub hr d3">La filosofía, la religión y la tradición cultural detrás de las civilizaciones que estudiamos.</p>
-    <a class="cta hr d4" href="#idea">Entrar <span aria-hidden="true">↓</span></a>
+    <p class="dek hr d3">La filosofía, la religión y la tradición cultural detrás de las civilizaciones que estudiamos. Los imperios caen y las fronteras se mueven; lo que una civilización cree sobre sí misma es lo que atraviesa los siglos. Alma busca entender por qué China, Japón y Corea deciden como deciden.</p>
+    <svg class="seal hr d3" viewBox="0 0 64 64" role="img" aria-label="Sello de Alma: tres anillos abiertos y un punto de luz">
+      <path style="--l:57" d="M41 32 A9 9 0 1 1 32 23"/>
+      <path style="--l:96" d="M15.06 33.48 A17 17 0 1 1 30.52 48.94"/>
+      <path style="--l:136" d="M27.66 7.38 A25 25 0 1 1 7.38 27.66"/>
+      <circle cx="32" cy="32" r="2.6"/>
+    </svg>
   </div>
+</header>
+
+<div class="corr" role="group" aria-label="Filtrar cuadernos por corriente">
+  <span class="lbl">Corrientes</span>
+  <button class="cor-btn c-orden" type="button" data-c="orden" aria-pressed="false" title="Cómo se organizan la familia, la escuela y el Estado. Confucianismo y pensamiento de gobierno."><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M766 50Q765 60 757.5 66.5Q750 73 733 75V142H828L855 109L919 159Q915 164 906.5 168.5Q898 173 883 175V431Q883 435 869.5 441.5Q856 448 840 448H831V421H462V442Q462 444 450.5 451.5Q439 459 420 459H412V114L474 142H549V41L629 50Q628 60 620 66.5Q612 73 596 75V142H687V41ZM433 553 496 582H803L829 550L891 598Q887 604 879 608Q871 612 858 614V747Q858 750 844.5 757Q831 764 813 764H805V731H484V755Q484 758 472.5 765Q461 772 441 772H433ZM245 934Q245 937 239 942.5Q233 948 223 952.5Q213 957 200 957H193V514Q180 531 166 547Q112 612 54 661L42 650Q79 610 115.5 559Q152 508 184.5 452.5Q217 397 242 342Q259 305 271 270H60L51 240H269L307 204L374 268Q368 273 358 274.5Q348 276 331 278Q305 343 263 413Q254 427 245 441V459Q278 472 301 487Q330 507 346 526.5Q362 546 365.5 562.5Q369 579 364.5 589.5Q360 600 349.5 602Q339 604 325 596Q317 573 298.5 548Q280 523 258 499Q251 493 245 487ZM805 702V612H484V702ZM834 789Q830 796 820.5 800.5Q811 805 796 804Q779 826 756 852Q739 871 721 888H841L882 834L890 840Q898 847 910.5 857Q923 867 936.5 878.5Q950 890 962 902Q958 918 937 918H323L315 888H691Q707 863 723 831Q743 791 755 758ZM885 446 897 455Q909 465 925.5 478.5Q942 492 955 505Q952 521 930 521H363L355 491H848ZM733 391H831V296H733ZM831 266V172H733V266ZM596 296V391H687V296ZM596 172V266H687V172ZM549 391V296H462V391ZM549 266V172H462V266ZM152 42Q197 60 224 80Q251 100 263.5 119.5Q276 139 277.5 155.5Q279 172 272 182.5Q265 193 253.5 194.5Q242 196 228 186Q223 164 208.5 139Q194 114 176.5 90Q159 66 141 50ZM496 764Q530 779 549.5 795.5Q569 812 576.5 828.5Q584 845 582.5 857.5Q581 870 573.5 877.5Q566 885 554.5 885Q543 885 531 875Q528 850 513 820.5Q498 791 483 770Z"/></svg><span class="nm">Orden</span><span class="ct">7</span><span class="vh">cuadernos. lǐ · rei · ye</span></button>
+    <button class="cor-btn c-vacio" type="button" data-c="vacio" aria-pressed="false" title="Lo que no se fuerza. Taoísmo, y su manera de mirar el poder desde afuera."><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M796 268Q795 278 786.5 285Q778 292 759 294V440H800L844 385L852 391Q859 398 871.5 408Q884 418 898 430.5Q912 443 923 454Q920 470 897 470H759V675H837L879 622L887 628Q895 635 907 644.5Q919 654 932 666Q945 678 957 689Q953 705 930 705H64L55 675H229V470H94L85 440H229V257L318 267Q317 277 308.5 284.5Q300 292 281 294V440H391V257L479 268Q478 278 469.5 285Q461 292 442 294V440H548V259L635 269Q634 279 625.5 286Q617 293 598 295V440H707V257ZM812 126 820 132Q828 139 840.5 149.5Q853 160 867.5 172Q882 184 893 195Q889 211 867 211H227Q214 229 200 246Q142 316 82 361L68 349Q101 313 134 264.5Q167 216 197.5 158.5Q228 101 251 41L338 77Q335 84 325.5 89Q316 94 300 92Q277 139 248 181H767ZM281 675H391V470H281ZM598 675H707V470H598ZM442 675H548V470H442ZM225 734Q232 793 216.5 835Q201 877 176 903Q151 929 129 942Q116 949 101.5 953Q87 957 75 955Q63 953 58 944Q52 931 59.5 919.5Q67 908 80 899Q107 889 134.5 865.5Q162 842 182 808.5Q202 775 206 733ZM747 730Q805 756 842.5 785Q880 814 899 841.5Q918 869 923 892.5Q928 916 922.5 931Q917 946 904 950Q891 954 875 942Q869 908 846.5 870Q824 832 794 797.5Q764 763 735 739ZM542 737Q586 765 613 794Q640 823 651.5 849.5Q663 876 663.5 897Q664 918 656.5 931Q649 944 636.5 945.5Q624 947 610 934Q609 903 596.5 868.5Q584 834 565.5 801Q547 768 528 744ZM345 742Q383 771 405 800.5Q427 830 435.5 856Q444 882 442 902.5Q440 923 431.5 935Q423 947 409.5 947.5Q396 948 383 935Q384 905 376.5 870.5Q369 836 357 803.5Q345 771 331 746Z"/></svg><span class="nm">Vacío</span><span class="ct">3</span><span class="vh">cuadernos. wú · mu · mu</span></button>
+    <button class="cor-btn c-camino" type="button" data-c="camino" aria-pressed="false" title="Una idea que viaja de India a Asia Oriental y cambia en cada país. Budismo y sus escuelas."><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M664 566Q659 575 645 579Q636 582 625 579Q605 606 580 638Q548 679 509.5 720.5Q471 762 430 801Q401 828 374 851Q411 848 462 844Q545 838 650 828Q737 820 827 810Q822 802 817 793Q792 753 764.5 716Q737 679 713 649L727 642Q794 690 837 734.5Q880 779 904 817.5Q928 856 935.5 885.5Q943 915 938 933Q933 951 920 954.5Q907 958 890 945Q881 911 862 872Q851 851 839 830Q758 846 646 865Q517 888 365 909Q354 925 343 929L311 847L322 844Q332 842 337 838Q369 811 404.5 771Q440 731 474 685.5Q508 640 535 597Q562 555 578 522H295L287 492H582V284H360L352 254H582V46L673 56Q671 66 662.5 73.5Q654 81 636 84V254H790L835 200L843 206Q851 213 863.5 223Q876 233 890 244.5Q904 256 916 268Q912 284 890 284H636V492H844L888 437L896 443Q904 450 917 460Q930 470 944 482Q958 494 969 506Q966 522 943 522H580ZM102 678Q111 678 115 675Q119 672 126 656Q130 647 134.5 638.5Q139 630 145.5 615Q152 600 164 571.5Q176 543 197.5 494.5Q219 446 251 372Q283 298 329 191L347 195Q333 235 315 286.5Q297 338 277.5 392Q258 446 240.5 494.5Q223 543 210.5 579Q198 615 193 631Q186 654 181 676.5Q176 699 177 718Q177 735 181 752Q185 769 190.5 789Q196 809 199.5 833.5Q203 858 201 889Q200 920 187 937.5Q174 955 150 955Q137 955 130.5 942Q124 929 123 906Q129 855 129.5 814.5Q130 774 124 747.5Q118 721 107 714Q97 707 85.5 704.5Q74 702 58 701V678ZM130 58Q183 67 217 82Q251 97 269 116Q287 135 292 152.5Q297 170 292.5 182.5Q288 195 275.5 199Q263 203 247 195Q237 172 216.5 148Q196 124 170 103Q144 82 120 68ZM55 279Q105 285 137 298.5Q169 312 185.5 329.5Q202 347 207 363.5Q212 380 206.5 392Q201 404 188.5 407.5Q176 411 160 402Q152 382 133 360Q114 338 91 319Q68 300 46 288Z"/></svg><span class="nm">Camino</span><span class="ct">6</span><span class="vh">cuadernos. fǎ · hō · beop</span></button>
+    <button class="cor-btn c-raiz" type="button" data-c="raiz" aria-pressed="false" title="Lo anterior a las escuelas. Sintoísmo, religión popular, chamanismo coreano."><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M848 241 881 205 954 261Q949 267 937 272.5Q925 278 910 281V692Q910 695 902.5 700.5Q895 706 885 710Q875 714 865 714H858V646H704V934Q704 938 698 943.5Q692 949 682.5 952.5Q673 956 662 956H652V646H498V705Q498 708 492 713Q486 718 476 721.5Q466 725 455 725H445V212L503 241H652V44L740 54Q738 64 730.5 71.5Q723 79 704 82V241ZM273 927Q273 930 267 935Q261 940 251 944.5Q241 949 228 949H219V525Q201 545 181 565Q118 630 52 677L39 666Q83 627 127 577Q171 527 210 471Q249 415 279 359Q300 320 315 284H57L48 254H314L354 216L420 282Q413 287 402.5 288Q392 289 375 291Q346 359 295 430Q284 445 273 460V489Q317 505 346 524Q377 545 393 565Q409 585 413 602Q417 619 412 630Q407 641 396 643.5Q385 646 371 638Q363 614 343 587.5Q323 561 300 536Q286 522 273 510ZM704 453V616H858V453ZM652 616V453H498V616ZM704 271V424H858V271ZM498 424H652V271H498ZM170 48Q216 66 244.5 86.5Q273 107 286.5 127.5Q300 148 302 165Q304 182 298 193Q292 204 280.5 206Q269 208 254 197Q249 174 233.5 147.5Q218 121 198 97Q178 73 159 56Z"/></svg><span class="nm">Raíz</span><span class="ct">7</span><span class="vh">cuadernos. shén · kami · sin</span></button>
 </div>
+<p class="cor-note" id="cor-note" aria-live="polite"></p>
 
-<section class="idea" id="idea">
-  <div class="wrap">
-    <h2 class="rv">Los imperios caen. Las fronteras se mueven. Lo que una civilización cree sobre sí misma es lo que atraviesa los siglos.</h2>
-    <p class="lead rv">Alma estudia las ideas con las que China, Japón y Corea se explican a sí mismas y deciden. No para volverlas misteriosas, sino para entender por qué deciden como deciden.</p>
-  </div>
-</section>
-
-<section id="corrientes">
-  <div class="sec-head">
-    <p class="eyebrow j rv">Cuatro corrientes</p>
-    <h2 class="rv">Cuatro maneras de explicar el mundo.</h2>
-    <p class="l rv">Elige una corriente y la lista de cuadernos resalta los que la recorren. Vuelve a pulsarla para quitar el filtro.</p>
-  </div>
-  <div class="cor rv" role="group" aria-label="Filtrar cuadernos por corriente">
-    <button class="cor-btn c-orden" type="button" data-c="orden" aria-pressed="false"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M766 50Q765 60 757.5 66.5Q750 73 733 75V142H828L855 109L919 159Q915 164 906.5 168.5Q898 173 883 175V431Q883 435 869.5 441.5Q856 448 840 448H831V421H462V442Q462 444 450.5 451.5Q439 459 420 459H412V114L474 142H549V41L629 50Q628 60 620 66.5Q612 73 596 75V142H687V41ZM433 553 496 582H803L829 550L891 598Q887 604 879 608Q871 612 858 614V747Q858 750 844.5 757Q831 764 813 764H805V731H484V755Q484 758 472.5 765Q461 772 441 772H433ZM245 934Q245 937 239 942.5Q233 948 223 952.5Q213 957 200 957H193V514Q180 531 166 547Q112 612 54 661L42 650Q79 610 115.5 559Q152 508 184.5 452.5Q217 397 242 342Q259 305 271 270H60L51 240H269L307 204L374 268Q368 273 358 274.5Q348 276 331 278Q305 343 263 413Q254 427 245 441V459Q278 472 301 487Q330 507 346 526.5Q362 546 365.5 562.5Q369 579 364.5 589.5Q360 600 349.5 602Q339 604 325 596Q317 573 298.5 548Q280 523 258 499Q251 493 245 487ZM805 702V612H484V702ZM834 789Q830 796 820.5 800.5Q811 805 796 804Q779 826 756 852Q739 871 721 888H841L882 834L890 840Q898 847 910.5 857Q923 867 936.5 878.5Q950 890 962 902Q958 918 937 918H323L315 888H691Q707 863 723 831Q743 791 755 758ZM885 446 897 455Q909 465 925.5 478.5Q942 492 955 505Q952 521 930 521H363L355 491H848ZM733 391H831V296H733ZM831 266V172H733V266ZM596 296V391H687V296ZM596 172V266H687V172ZM549 391V296H462V391ZM549 266V172H462V266ZM152 42Q197 60 224 80Q251 100 263.5 119.5Q276 139 277.5 155.5Q279 172 272 182.5Q265 193 253.5 194.5Q242 196 228 186Q223 164 208.5 139Q194 114 176.5 90Q159 66 141 50ZM496 764Q530 779 549.5 795.5Q569 812 576.5 828.5Q584 845 582.5 857.5Q581 870 573.5 877.5Q566 885 554.5 885Q543 885 531 875Q528 850 513 820.5Q498 791 483 770Z"/></svg><span><span class="nm">Orden</span><span class="rd">lǐ · rei · ye</span><span class="ds">Cómo se organizan la familia, la escuela y el Estado. Confucianismo y pensamiento de gobierno.</span></span><span class="ct">7 cuadernos</span></button>
-    <button class="cor-btn c-vacio" type="button" data-c="vacio" aria-pressed="false"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M796 268Q795 278 786.5 285Q778 292 759 294V440H800L844 385L852 391Q859 398 871.5 408Q884 418 898 430.5Q912 443 923 454Q920 470 897 470H759V675H837L879 622L887 628Q895 635 907 644.5Q919 654 932 666Q945 678 957 689Q953 705 930 705H64L55 675H229V470H94L85 440H229V257L318 267Q317 277 308.5 284.5Q300 292 281 294V440H391V257L479 268Q478 278 469.5 285Q461 292 442 294V440H548V259L635 269Q634 279 625.5 286Q617 293 598 295V440H707V257ZM812 126 820 132Q828 139 840.5 149.5Q853 160 867.5 172Q882 184 893 195Q889 211 867 211H227Q214 229 200 246Q142 316 82 361L68 349Q101 313 134 264.5Q167 216 197.5 158.5Q228 101 251 41L338 77Q335 84 325.5 89Q316 94 300 92Q277 139 248 181H767ZM281 675H391V470H281ZM598 675H707V470H598ZM442 675H548V470H442ZM225 734Q232 793 216.5 835Q201 877 176 903Q151 929 129 942Q116 949 101.5 953Q87 957 75 955Q63 953 58 944Q52 931 59.5 919.5Q67 908 80 899Q107 889 134.5 865.5Q162 842 182 808.5Q202 775 206 733ZM747 730Q805 756 842.5 785Q880 814 899 841.5Q918 869 923 892.5Q928 916 922.5 931Q917 946 904 950Q891 954 875 942Q869 908 846.5 870Q824 832 794 797.5Q764 763 735 739ZM542 737Q586 765 613 794Q640 823 651.5 849.5Q663 876 663.5 897Q664 918 656.5 931Q649 944 636.5 945.5Q624 947 610 934Q609 903 596.5 868.5Q584 834 565.5 801Q547 768 528 744ZM345 742Q383 771 405 800.5Q427 830 435.5 856Q444 882 442 902.5Q440 923 431.5 935Q423 947 409.5 947.5Q396 948 383 935Q384 905 376.5 870.5Q369 836 357 803.5Q345 771 331 746Z"/></svg><span><span class="nm">Vacío</span><span class="rd">wú · mu · mu</span><span class="ds">Lo que no se fuerza. Taoísmo, y su manera de mirar el poder desde afuera.</span></span><span class="ct">3 cuadernos</span></button>
-    <button class="cor-btn c-camino" type="button" data-c="camino" aria-pressed="false"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M664 566Q659 575 645 579Q636 582 625 579Q605 606 580 638Q548 679 509.5 720.5Q471 762 430 801Q401 828 374 851Q411 848 462 844Q545 838 650 828Q737 820 827 810Q822 802 817 793Q792 753 764.5 716Q737 679 713 649L727 642Q794 690 837 734.5Q880 779 904 817.5Q928 856 935.5 885.5Q943 915 938 933Q933 951 920 954.5Q907 958 890 945Q881 911 862 872Q851 851 839 830Q758 846 646 865Q517 888 365 909Q354 925 343 929L311 847L322 844Q332 842 337 838Q369 811 404.5 771Q440 731 474 685.5Q508 640 535 597Q562 555 578 522H295L287 492H582V284H360L352 254H582V46L673 56Q671 66 662.5 73.5Q654 81 636 84V254H790L835 200L843 206Q851 213 863.5 223Q876 233 890 244.5Q904 256 916 268Q912 284 890 284H636V492H844L888 437L896 443Q904 450 917 460Q930 470 944 482Q958 494 969 506Q966 522 943 522H580ZM102 678Q111 678 115 675Q119 672 126 656Q130 647 134.5 638.5Q139 630 145.5 615Q152 600 164 571.5Q176 543 197.5 494.5Q219 446 251 372Q283 298 329 191L347 195Q333 235 315 286.5Q297 338 277.5 392Q258 446 240.5 494.5Q223 543 210.5 579Q198 615 193 631Q186 654 181 676.5Q176 699 177 718Q177 735 181 752Q185 769 190.5 789Q196 809 199.5 833.5Q203 858 201 889Q200 920 187 937.5Q174 955 150 955Q137 955 130.5 942Q124 929 123 906Q129 855 129.5 814.5Q130 774 124 747.5Q118 721 107 714Q97 707 85.5 704.5Q74 702 58 701V678ZM130 58Q183 67 217 82Q251 97 269 116Q287 135 292 152.5Q297 170 292.5 182.5Q288 195 275.5 199Q263 203 247 195Q237 172 216.5 148Q196 124 170 103Q144 82 120 68ZM55 279Q105 285 137 298.5Q169 312 185.5 329.5Q202 347 207 363.5Q212 380 206.5 392Q201 404 188.5 407.5Q176 411 160 402Q152 382 133 360Q114 338 91 319Q68 300 46 288Z"/></svg><span><span class="nm">Camino</span><span class="rd">fǎ · hō · beop</span><span class="ds">Una idea que viaja de India a Asia Oriental y cambia en cada país. Budismo y sus escuelas.</span></span><span class="ct">6 cuadernos</span></button>
-    <button class="cor-btn c-raiz" type="button" data-c="raiz" aria-pressed="false"><svg class="gl" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M848 241 881 205 954 261Q949 267 937 272.5Q925 278 910 281V692Q910 695 902.5 700.5Q895 706 885 710Q875 714 865 714H858V646H704V934Q704 938 698 943.5Q692 949 682.5 952.5Q673 956 662 956H652V646H498V705Q498 708 492 713Q486 718 476 721.5Q466 725 455 725H445V212L503 241H652V44L740 54Q738 64 730.5 71.5Q723 79 704 82V241ZM273 927Q273 930 267 935Q261 940 251 944.5Q241 949 228 949H219V525Q201 545 181 565Q118 630 52 677L39 666Q83 627 127 577Q171 527 210 471Q249 415 279 359Q300 320 315 284H57L48 254H314L354 216L420 282Q413 287 402.5 288Q392 289 375 291Q346 359 295 430Q284 445 273 460V489Q317 505 346 524Q377 545 393 565Q409 585 413 602Q417 619 412 630Q407 641 396 643.5Q385 646 371 638Q363 614 343 587.5Q323 561 300 536Q286 522 273 510ZM704 453V616H858V453ZM652 616V453H498V616ZM704 271V424H858V271ZM498 424H652V271H498ZM170 48Q216 66 244.5 86.5Q273 107 286.5 127.5Q300 148 302 165Q304 182 298 193Q292 204 280.5 206Q269 208 254 197Q249 174 233.5 147.5Q218 121 198 97Q178 73 159 56Z"/></svg><span><span class="nm">Raíz</span><span class="rd">shén · kami · sin</span><span class="ds">Lo anterior a las escuelas. Sintoísmo, religión popular, chamanismo coreano.</span></span><span class="ct">7 cuadernos</span></button>
-  </div>
-  <p class="cor-note" id="cor-note" aria-live="polite"></p>
-</section>
-
-<section id="cuadernos">
-  <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">I</span><div><h3><span class="vh">Acto I. </span>Lo anterior a las escuelas</h3><p>Antes de que hubiera escuelas, hubo cielo, ancestros y espíritus. Lo que cada sociedad creyó primero explica lo que aceptó después.</p><p class="ca">Cuadernos 01 a 03</p></div></div><ul class="cds"><li class="cd" data-c="orden raiz"><details><summary><span class="n">01</span><span><span class="t">El Mandato del Cielo</span><span class="m">China · desde el s. XI a. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden, Raíz"><i class="c-orden"></i><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Cómo se legitima a quien gobierna: el Cielo, los ancestros y el derecho a ser reemplazado.</p></details></li><li class="cd" data-c="raiz"><details><summary><span class="n">02</span><span><span class="t">Kami y el origen de Yamato</span><span class="m">Japón · hasta el s. VIII</span></span><span class="dots" role="img" aria-label="Corrientes: Raíz"><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">El sintoísmo y los mitos que sostuvieron a la corte, entre ellos el Kojiki y el Nihon shoki.</p></details></li><li class="cd" data-c="raiz"><details><summary><span class="n">03</span><span><span class="t">Dangun y el chamanismo coreano</span><span class="m">Corea · mito fundacional y presente</span></span><span class="dots" role="img" aria-label="Corrientes: Raíz"><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Un mito de origen y una religión popular que sigue viva.</p></details></li></ul></div>
-  <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">II</span><div><h3><span class="vh">Acto II. </span>Las escuelas que ordenan el caos</h3><p>Cuando los reinos se disputaban el territorio, pensadores distintos respondieron a la misma pregunta: cómo se vive y se gobierna cuando todo se desordena.</p><p class="ca">Cuadernos 04 a 06</p></div></div><ul class="cds"><li class="cd" data-c="orden"><details><summary><span class="n">04</span><span><span class="t">Confucio y la familia como Estado</span><span class="m">China · desde el s. VI a. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st pil">Piloto</span></summary><p class="d">Ren, li y xiao: una ética de relaciones convertida en doctrina de gobierno.</p></details></li><li class="cd" data-c="vacio"><details><summary><span class="n">05</span><span><span class="t">Daoísmo: el arte de no forzar</span><span class="m">China · Reinos Combatientes</span></span><span class="dots" role="img" aria-label="Corrientes: Vacío"><i class="c-vacio"></i></span><span class="st">Por investigar</span></summary><p class="d">Laozi y Zhuangzi frente a un mundo que exige actuar.</p></details></li><li class="cd" data-c="orden"><details><summary><span class="n">06</span><span><span class="t">Legalismo, Qin y Han</span><span class="m">China · 221 a. C. a 220 d. C.</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st">Por investigar</span></summary><p class="d">Dos recetas para el Estado, y cómo una terminó adoptando a la otra.</p></details></li></ul></div>
-  <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">III</span><div><h3><span class="vh">Acto III. </span>El Camino que viene de la India</h3><p>Una idea cruza desierto, mar y montaña, y en cada país se queda y cambia. Nalanda, el nombre de nuestra biblioteca, fue un gran centro de estudio budista en la India.</p><p class="ca">Cuadernos 07 a 09</p></div></div><ul class="cds"><li class="cd" data-c="camino"><details><summary><span class="n">07</span><span><span class="t">El budismo cruza la Ruta de la Seda</span><span class="m">China · s. I al X</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st">Por investigar</span></summary><p class="d">Traducir una idea de India a China: monasterios, textos y la escuela Chan.</p></details></li><li class="cd" data-c="camino"><details><summary><span class="n">08</span><span><span class="t">Corea, el puente</span><span class="m">Corea · Tres Reinos y Silla</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st pil">Piloto</span></summary><p class="d">Un budismo que llega por tierra, se transforma y sigue viaje hacia Japón.</p></details></li><li class="cd" data-c="camino"><details><summary><span class="n">09</span><span><span class="t">De Nara al Zen</span><span class="m">Japón · s. VI al XIII</span></span><span class="dots" role="img" aria-label="Corrientes: Camino"><i class="c-camino"></i></span><span class="st">Por investigar</span></summary><p class="d">De religión de Estado a prácticas de monjes y guerreros.</p></details></li></ul></div>
-  <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">IV</span><div><h3><span class="vh">Acto IV. </span>Cuando las ideas gobiernan</h3><p>Un texto puede sostener un Estado durante siglos, o ser reinterpretado para justificarlo.</p><p class="ca">Cuadernos 10 a 12</p></div></div><ul class="cds"><li class="cd" data-c="orden"><details><summary><span class="n">10</span><span><span class="t">Neoconfucianismo y Joseon</span><span class="m">Corea · 1392 a 1910, con origen en la dinastía Song</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st">Por investigar</span></summary><p class="d">Un Estado que se gobierna con un texto y un examen.</p></details></li><li class="cd" data-c="orden raiz"><details><summary><span class="n">11</span><span><span class="t">Tokugawa: ética guerrera y estudio nacional</span><span class="m">Japón · 1603 a 1868</span></span><span class="dots" role="img" aria-label="Corrientes: Orden, Raíz"><i class="c-orden"></i><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Samuráis sin guerras, el confucianismo del bakufu y la invención de una tradición.</p></details></li><li class="cd" data-c="vacio camino raiz"><details><summary><span class="n">12</span><span><span class="t">Tres enseñanzas, un solo hogar</span><span class="m">China · Ming y Qing, con ecos en Corea y Japón</span></span><span class="dots" role="img" aria-label="Corrientes: Vacío, Camino, Raíz"><i class="c-vacio"></i><i class="c-camino"></i><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Cómo la gente común mezcló lo que los letrados separaban.</p></details></li></ul></div>
-  <div class="acto rv"><div class="acto-h"><span class="num" aria-hidden="true">V</span><div><h3><span class="vh">Acto V. </span>La prueba de la modernidad</h3><p>Imperios, misioneros, industria y mercado ponen a prueba las creencias. Algunas se transforman, otras se reinventan. El último cuaderno cruza el Pacífico.</p><p class="ca">Cuadernos 13 a 15</p></div></div><ul class="cds"><li class="cd" data-c="raiz camino"><details><summary><span class="n">13</span><span><span class="t">Fe y Estado en la modernización</span><span class="m">Transversal · 1850 a 1945</span></span><span class="dots" role="img" aria-label="Corrientes: Raíz, Camino"><i class="c-raiz"></i><i class="c-camino"></i></span><span class="st">Por investigar</span></summary><p class="d">Una rebelión cristianizada, un sintoísmo de Estado y una Corea que cambia de fe.</p></details></li><li class="cd" data-c="orden"><details><summary><span class="n">14</span><span><span class="t">Valores asiáticos y milagro económico</span><span class="m">Transversal · 1960 a 2026</span></span><span class="dots" role="img" aria-label="Corrientes: Orden"><i class="c-orden"></i></span><span class="st pil">Piloto</span></summary><p class="d">¿Explica el confucianismo el desarrollo? El argumento y sus críticas.</p></details></li><li class="cd" data-c="orden vacio camino raiz"><details><summary><span class="n">15</span><span><span class="t">La huella en el Perú</span><span class="m">Perú · desde el s. XIX hasta hoy</span></span><span class="dots" role="img" aria-label="Corrientes: Orden, Vacío, Camino, Raíz"><i class="c-orden"></i><i class="c-vacio"></i><i class="c-camino"></i><i class="c-raiz"></i></span><span class="st">Por investigar</span></summary><p class="d">Llegadas, templos, comida y comunidades: cómo Asia se volvió peruana.</p></details></li></ul></div>
-</section>
-
-<section id="lectura">
-  <div class="reg" style="margin-top:0">
-    <p class="eyebrow rv">Tres registros de certeza</p>
-    <h3 class="rv">Lo que se cuenta, lo que se lee, lo que se comprueba.</h3>
-    <p class="exa rv">Cada afirmación lleva una etiqueta. Ejemplo ilustrativo con el mito de Dangun; no es contenido final.</p>
-    <div class="rows rv">
-      <div class="rw tr"><span class="tag">Tradición</span><p>El primer reino coreano, Gojoseon, habría sido fundado por Dangun en 2333 a. C.</p></div>
-      <div class="rw tx"><span class="tag">Texto</span><p>El relato figura en el Samguk yusa, compilado por el monje Iryeon en el siglo XIII, y se cita con edición y traductor.</p></div>
-      <div class="rw hi"><span class="tag">Historia</span><p>Esa fecha no se puede comprobar. Los historiadores leen el mito como una manera de pensar el origen y la identidad.</p></div>
+<main id="contenido">
+  <div class="region-block" id="cuadernos">
+    <div class="region-head">
+      <span class="region-index">I</span>
+      <div class="region-head-text">
+        <h2>Los cuadernos</h2>
+        <span class="region-coord">China, Japón y Corea. Cuatro corrientes</span>
+      </div>
+      <span class="count">15 cuadernos</span>
     </div>
-    <p class="nota rv">Si un punto está en debate, se marca «en debate» y se muestran las posturas.</p>
+    <div class="acto-list">
+      <div class="acto rv" id="acto-1"><button class="acto-divider" type="button" aria-expanded="false" aria-controls="panel-1"><span class="acto-num" aria-hidden="true">I</span><span class="acto-title"><span class="vh">Acto I. </span>Lo anterior a las escuelas</span><span class="acto-years">Cuadernos 01 a 03</span><span class="acto-meta"><span class="acto-dots" aria-hidden="true"><i class="c-orden"></i><i class="c-raiz"></i></span>3 cuadernos<span class="acto-chev" aria-hidden="true"></span></span><span class="acto-blurb">Antes de que hubiera escuelas, hubo cielo, ancestros y espíritus. Lo que cada sociedad creyó primero explica lo que aceptó después.</span></button><div class="acto-panel" id="panel-1"><div class="acto-cards"><div class="card-grid"><article class="card" data-c="orden raiz"><div class="card-top"><span class="card-ref">Cuaderno 01</span><span class="cbadges"><span class="cbadge c-orden">Orden</span><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>El Mandato del Cielo</h3><p>Cómo se legitima a quien gobierna: el Cielo, los ancestros y el derecho a ser reemplazado.</p><span class="go">China · desde el s. XI a. C.</span></article><article class="card" data-c="raiz"><div class="card-top"><span class="card-ref">Cuaderno 02</span><span class="cbadges"><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>Kami y el origen de Yamato</h3><p>El sintoísmo y los mitos que sostuvieron a la corte, entre ellos el Kojiki y el Nihon shoki.</p><span class="go">Japón · hasta el s. VIII</span></article><article class="card" data-c="raiz"><div class="card-top"><span class="card-ref">Cuaderno 03</span><span class="cbadges"><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>Dangun y el chamanismo coreano</h3><p>Un mito de origen y una religión popular que sigue viva.</p><span class="go">Corea · mito fundacional y presente</span></article></div></div></div></div>
+  <div class="acto rv" id="acto-2"><button class="acto-divider" type="button" aria-expanded="false" aria-controls="panel-2"><span class="acto-num" aria-hidden="true">II</span><span class="acto-title"><span class="vh">Acto II. </span>Las escuelas que ordenan el caos</span><span class="acto-years">Cuadernos 04 a 06</span><span class="acto-meta"><span class="acto-dots" aria-hidden="true"><i class="c-orden"></i><i class="c-vacio"></i></span>3 cuadernos<span class="acto-chev" aria-hidden="true"></span></span><span class="acto-blurb">Cuando los reinos se disputaban el territorio, pensadores distintos respondieron a la misma pregunta: cómo se vive y se gobierna cuando todo se desordena.</span></button><div class="acto-panel" id="panel-2"><div class="acto-cards"><div class="card-grid"><article class="card pilot" data-c="orden"><div class="card-top"><span class="card-ref">Cuaderno 04</span><span class="cbadges"><span class="cbadge c-orden">Orden</span></span></div><span class="tag">Piloto</span><h3>Confucio y la familia como Estado</h3><p>Ren, li y xiao: una ética de relaciones convertida en doctrina de gobierno.</p><span class="go">China · desde el s. VI a. C.</span></article><article class="card" data-c="vacio"><div class="card-top"><span class="card-ref">Cuaderno 05</span><span class="cbadges"><span class="cbadge c-vacio">Vacío</span></span></div><span class="tag">Por investigar</span><h3>Daoísmo: el arte de no forzar</h3><p>Laozi y Zhuangzi frente a un mundo que exige actuar.</p><span class="go">China · Reinos Combatientes</span></article><article class="card" data-c="orden"><div class="card-top"><span class="card-ref">Cuaderno 06</span><span class="cbadges"><span class="cbadge c-orden">Orden</span></span></div><span class="tag">Por investigar</span><h3>Legalismo, Qin y Han</h3><p>Dos recetas para el Estado, y cómo una terminó adoptando a la otra.</p><span class="go">China · 221 a. C. a 220 d. C.</span></article></div></div></div></div>
+  <div class="acto rv" id="acto-3"><button class="acto-divider" type="button" aria-expanded="false" aria-controls="panel-3"><span class="acto-num" aria-hidden="true">III</span><span class="acto-title"><span class="vh">Acto III. </span>El Camino que viene de la India</span><span class="acto-years">Cuadernos 07 a 09</span><span class="acto-meta"><span class="acto-dots" aria-hidden="true"><i class="c-camino"></i></span>3 cuadernos<span class="acto-chev" aria-hidden="true"></span></span><span class="acto-blurb">Una idea cruza desierto, mar y montaña, y en cada país se queda y cambia. Nalanda, el nombre de nuestra biblioteca, fue un gran centro de estudio budista en la India.</span></button><div class="acto-panel" id="panel-3"><div class="acto-cards"><div class="card-grid"><article class="card" data-c="camino"><div class="card-top"><span class="card-ref">Cuaderno 07</span><span class="cbadges"><span class="cbadge c-camino">Camino</span></span></div><span class="tag">Por investigar</span><h3>El budismo cruza la Ruta de la Seda</h3><p>Traducir una idea de India a China: monasterios, textos y la escuela Chan.</p><span class="go">China · s. I al X</span></article><article class="card pilot" data-c="camino"><div class="card-top"><span class="card-ref">Cuaderno 08</span><span class="cbadges"><span class="cbadge c-camino">Camino</span></span></div><span class="tag">Piloto</span><h3>Corea, el puente</h3><p>Un budismo que llega por tierra, se transforma y sigue viaje hacia Japón.</p><span class="go">Corea · Tres Reinos y Silla</span></article><article class="card" data-c="camino"><div class="card-top"><span class="card-ref">Cuaderno 09</span><span class="cbadges"><span class="cbadge c-camino">Camino</span></span></div><span class="tag">Por investigar</span><h3>De Nara al Zen</h3><p>De religión de Estado a prácticas de monjes y guerreros.</p><span class="go">Japón · s. VI al XIII</span></article></div></div></div></div>
+  <div class="acto rv" id="acto-4"><button class="acto-divider" type="button" aria-expanded="false" aria-controls="panel-4"><span class="acto-num" aria-hidden="true">IV</span><span class="acto-title"><span class="vh">Acto IV. </span>Cuando las ideas gobiernan</span><span class="acto-years">Cuadernos 10 a 12</span><span class="acto-meta"><span class="acto-dots" aria-hidden="true"><i class="c-orden"></i><i class="c-vacio"></i><i class="c-camino"></i><i class="c-raiz"></i></span>3 cuadernos<span class="acto-chev" aria-hidden="true"></span></span><span class="acto-blurb">Un texto puede sostener un Estado durante siglos, o ser reinterpretado para justificarlo.</span></button><div class="acto-panel" id="panel-4"><div class="acto-cards"><div class="card-grid"><article class="card" data-c="orden"><div class="card-top"><span class="card-ref">Cuaderno 10</span><span class="cbadges"><span class="cbadge c-orden">Orden</span></span></div><span class="tag">Por investigar</span><h3>Neoconfucianismo y Joseon</h3><p>Un Estado que se gobierna con un texto y un examen.</p><span class="go">Corea · 1392 a 1910, con origen en la dinastía Song</span></article><article class="card" data-c="orden raiz"><div class="card-top"><span class="card-ref">Cuaderno 11</span><span class="cbadges"><span class="cbadge c-orden">Orden</span><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>Tokugawa: ética guerrera y estudio nacional</h3><p>Samuráis sin guerras, el confucianismo del bakufu y la invención de una tradición.</p><span class="go">Japón · 1603 a 1868</span></article><article class="card" data-c="vacio camino raiz"><div class="card-top"><span class="card-ref">Cuaderno 12</span><span class="cbadges"><span class="cbadge c-vacio">Vacío</span><span class="cbadge c-camino">Camino</span><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>Tres enseñanzas, un solo hogar</h3><p>Cómo la gente común mezcló lo que los letrados separaban.</p><span class="go">China · Ming y Qing, con ecos en Corea y Japón</span></article></div></div></div></div>
+  <div class="acto rv" id="acto-5"><button class="acto-divider" type="button" aria-expanded="false" aria-controls="panel-5"><span class="acto-num" aria-hidden="true">V</span><span class="acto-title"><span class="vh">Acto V. </span>La prueba de la modernidad</span><span class="acto-years">Cuadernos 13 a 15</span><span class="acto-meta"><span class="acto-dots" aria-hidden="true"><i class="c-orden"></i><i class="c-vacio"></i><i class="c-camino"></i><i class="c-raiz"></i></span>3 cuadernos<span class="acto-chev" aria-hidden="true"></span></span><span class="acto-blurb">Imperios, misioneros, industria y mercado ponen a prueba las creencias. Algunas se transforman, otras se reinventan. El último cuaderno cruza el Pacífico.</span></button><div class="acto-panel" id="panel-5"><div class="acto-cards"><div class="card-grid"><article class="card" data-c="raiz camino"><div class="card-top"><span class="card-ref">Cuaderno 13</span><span class="cbadges"><span class="cbadge c-raiz">Raíz</span><span class="cbadge c-camino">Camino</span></span></div><span class="tag">Por investigar</span><h3>Fe y Estado en la modernización</h3><p>Una rebelión cristianizada, un sintoísmo de Estado y una Corea que cambia de fe.</p><span class="go">Transversal · 1850 a 1945</span></article><article class="card pilot" data-c="orden"><div class="card-top"><span class="card-ref">Cuaderno 14</span><span class="cbadges"><span class="cbadge c-orden">Orden</span></span></div><span class="tag">Piloto</span><h3>Valores asiáticos y milagro económico</h3><p>¿Explica el confucianismo el desarrollo? El argumento y sus críticas.</p><span class="go">Transversal · 1960 a 2026</span></article><article class="card" data-c="orden vacio camino raiz"><div class="card-top"><span class="card-ref">Cuaderno 15</span><span class="cbadges"><span class="cbadge c-orden">Orden</span><span class="cbadge c-vacio">Vacío</span><span class="cbadge c-camino">Camino</span><span class="cbadge c-raiz">Raíz</span></span></div><span class="tag">Por investigar</span><h3>La huella en el Perú</h3><p>Llegadas, templos, comida y comunidades: cómo Asia se volvió peruana.</p><span class="go">Perú · desde el s. XIX hasta hoy</span></article></div></div></div></div>
+    </div>
   </div>
-</section>
 
-<section id="coleccion">
-  <div class="sec-head">
-    <p class="eyebrow j rv">La colección editorial</p>
-    <h2 class="rv">Tres volúmenes, una misma mirada.</h2>
+  <div class="collection" id="coleccion">
+    <span class="eyebrow">La colección editorial</span>
+    <div class="collection-grid">
+      <a href="https://renzo34990.github.io/gengis-biblioteca/">
+        <span class="vol">VOL. I</span>
+        <h4>Nalanda</h4>
+        <p>Historia, política y economía de China, Japón y Corea del Sur, contadas como relato de poder y legado.</p>
+        <span class="status">● En publicación</span>
+        <span class="go">Ir a Nalanda <span aria-hidden="true">→</span></span>
+      </a>
+      <a href="https://renzo34990.github.io/forja-guerra/">
+        <span class="vol">VOL. II</span>
+        <h4>Forja</h4>
+        <p>Las guerras que formaron Asia: los conflictos que redibujaron fronteras, dinastías e identidades nacionales en la región.</p>
+        <span class="status">○ En desarrollo</span>
+        <span class="go">Ver el prototipo <span aria-hidden="true">→</span></span>
+      </a>
+      <div aria-current="page">
+        <span class="vol">VOL. III</span>
+        <h4>Alma</h4>
+        <p>El alma de Asia: filosofía, religión y tradición cultural detrás de las civilizaciones que estudiamos.</p>
+        <span class="status">○ En desarrollo</span>
+      </div>
+    </div>
   </div>
-  <div class="col rv">
-    <a href="https://renzo34990.github.io/gengis-biblioteca/"><span class="v">Vol. I</span><h3>Nalanda</h3><p>El pasado de China, Japón y Corea, cuaderno a cuaderno.</p><span class="go">Abrir Nalanda →</span></a>
-    <a href="https://renzo34990.github.io/forja-guerra/"><span class="v">Vol. II</span><h3>Forja</h3><p>Las guerras que formaron Asia y lo que heredamos de ellas.</p><span class="go">Abrir Forja →</span></a>
-    <div class="here"><span class="v">Vol. III · Estás aquí</span><h3>Alma</h3><p>La filosofía, la religión y la tradición que sostienen a esas civilizaciones.</p></div>
-  </div>
-</section>
+
+  <section class="dept" id="club" aria-labelledby="dept-title">
+    <div class="dept-grid">
+      <div>
+        <p class="eyebrow rv">Club Kongzhi UNMSM</p>
+        <h2 id="dept-title" class="rv" style="--d:.06s">El Club</h2>
+        <p class="club-epic rv" style="--d:.1s">Somos el puente entre Asia y el mundo universitario peruano.</p>
+        <p class="lead rv" style="--d:.14s">Donde otros ven un continente lejano, Club Kongzhi ve el siguiente capítulo de nuestra región. Lo estudia con rigor, lo cuenta con claridad y lo trae de vuelta a las aulas de San Marcos: de Lima a Pekín, de Tokio a Seúl, de la historia que pasó a las decisiones que vienen.</p>
+        <div class="links rv" style="--d:.18s">
+          <a class="tl" href="https://renzo34990.github.io/pr-landing/departamento/" target="_blank" rel="noopener">Departamento de Investigación <span aria-hidden="true">→</span></a>
+          <a class="tl" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">Instagram del club <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <ul class="club-figs rv" style="--d:.12s" aria-label="Principales contribuyentes">
+<li class="fig" style="--tone:#C9A63E"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><circle cx="47" cy="43" r="5.5"/><path d="M51 47l6 6"/></g></svg><strong>Renzo</strong><em>Director de Investigación</em><span class="soc">LinkedIn · por añadir</span></li>
+<li class="fig" style="--tone:#D26A55"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M22 49c4-2 7-2 10 0 3-2 6-2 10 0v7c-4-2-7-2-10 0-3-2-6-2-10 0z"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+<li class="fig" style="--tone:#7A9E8E"><svg class="avatar" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" class="ring-a"/><g class="glyph-a"><circle cx="32" cy="23" r="8.5"/><path d="M14 57c0-12.5 8-20 18-20s18 7.5 18 20"/><path d="M24 55v-6M32 55v-10M40 55v-8"/></g></svg><strong>Nombre por añadir</strong><em>Investigador</em><span class="soc">LinkedIn o Instagram · por añadir</span></li>
+      </ul>
+    </div>
+  </section>
 </main>
 
-<footer class="seal-wrap">
-  <a class="publisher-seal" href="https://www.instagram.com/clubkongzhi/">
-    <svg aria-hidden="true" viewBox="0 0 64 64" fill="none" stroke="#EAF2EE" stroke-width="3" stroke-linecap="round"><path d="M41 32 A9 9 0 1 1 32 23"/><path d="M15.06 33.48 A17 17 0 1 1 30.52 48.94"/><path d="M27.66 7.38 A25 25 0 1 1 7.38 27.66"/><circle cx="32" cy="32" r="3.2" fill="#B8F0E0" stroke="none"/></svg>
-    <span><b>Club Kongzhi</b><small>Editor de Alma · UNMSM</small></span>
+<footer>
+  <a class="publisher-seal" href="https://www.instagram.com/clubkongzhi/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14.5" stroke="#5DB5A4" stroke-width="1"/><path d="M16 8L16 24M8 16L24 16" stroke="#5DB5A4" stroke-width="1"/><circle cx="16" cy="16" r="3" stroke="#5DB5A4" stroke-width="1"/></svg>
+    <span class="ps-text"><strong>Club Kongzhi</strong>Editor de Alma / UNMSM</span>
   </a>
-  <p>Triveni · Nalanda · Forja · Alma</p>
 </footer>
 
 <script>
@@ -320,13 +365,16 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
     window.addEventListener('keydown',end);window.addEventListener('pointerdown',end);
   }
 
-  /* hilo de lectura */
-  var th=document.getElementById('thread'),tick=false;
+  /* hilo de lectura vertical y barra superior */
+  var th=document.getElementById('thread'),fill=th.firstElementChild,bar=document.getElementById('topbar'),tk=false;
   function upd(){
-    var h=root.scrollHeight-innerHeight;
-    th.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';tick=false;
+    tk=false;
+    var h=root.scrollHeight-innerHeight,p=h>0?Math.min(1,Math.max(0,scrollY/h)):0;
+    fill.style.transform='scaleY('+p+')';th.style.setProperty('--p',p);
+    bar.classList.toggle('solid',scrollY>40);
   }
-  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+  addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});
+  addEventListener('resize',upd);upd();
 
   /* revelado lento */
   var rv=[].slice.call(document.querySelectorAll('.rv'));
@@ -335,23 +383,35 @@ section{padding:clamp(72px,10vw,128px) var(--gut);border-top:1px solid var(--lin
     rv.forEach(function(el){io.observe(el)});
   }else{rv.forEach(function(el){el.classList.add('in')})}
 
+  /* actos plegables */
+  function setOpen(wrap,open){
+    var btn=wrap.querySelector('.acto-divider'),panel=wrap.querySelector('.acto-panel');
+    wrap.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    if(open){panel.removeAttribute('inert')}else{panel.setAttribute('inert','')}
+  }
+  var actos=[].slice.call(document.querySelectorAll('.acto'));
+  actos.forEach(function(w){w.querySelector('.acto-divider').addEventListener('click',function(){setOpen(w,!w.classList.contains('open'))})});
+  actos.forEach(function(w){setOpen(w,false)});
+  var m=/^#acto-(\d)$/.exec(location.hash||'');if(m&&actos[+m[1]-1])setOpen(actos[+m[1]-1],true);
+
   /* filtro por corriente */
   var NAMES={orden:'Orden',vacio:'Vacío',camino:'Camino',raiz:'Raíz'};
   var btns=[].slice.call(document.querySelectorAll('.cor-btn'));
-  var cds=[].slice.call(document.querySelectorAll('.cd'));
+  var cards=[].slice.call(document.querySelectorAll('.card'));
   var note=document.getElementById('cor-note');
   function setSel(k){
     var n=0;
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(k&&b.getAttribute('data-c')===k))});
-    cds.forEach(function(c){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(!!k&&b.getAttribute('data-c')===k))});
+    cards.forEach(function(c){
       var on=!k||(' '+c.getAttribute('data-c')+' ').indexOf(' '+k+' ')>-1;
       c.classList.toggle('is-dim',!on);if(on)n++;
     });
-    note.textContent=k?('Corriente '+NAMES[k]+': '+n+' de '+cds.length+' cuadernos'):'';
+    if(k){actos.forEach(function(w){setOpen(w,!!w.querySelector('.card:not(.is-dim)'))})}
+    note.textContent=k?('Corriente '+NAMES[k]+': '+n+' de '+cards.length+' cuadernos'):'';
   }
   btns.forEach(function(b){b.addEventListener('click',function(){
     var k=b.getAttribute('data-c');setSel(b.getAttribute('aria-pressed')==='true'?null:k);
-    if(b.getAttribute('aria-pressed')==='true'){var t=document.getElementById('cuadernos');if(t&&!matchMedia('(max-width:720px)').matches)setTimeout(function(){t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})},500)}
   })});
   var hk=(location.hash||'').replace('#','');if(NAMES[hk])setSel(hk);
 })();
